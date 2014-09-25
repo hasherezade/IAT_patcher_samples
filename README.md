@@ -1,14 +1,10 @@
-Sample library for IAT Patcher
+Sample library for IAT Patcher:<br/>
 http://hasherezade.net/IAT_patcher
-compile using WinAsm (masm32) : http://www.winasm.net
----
-Purpose:
-Prints list of dynamically loaded modules and functions. 
 
-Format:
-[return_address]; loaded [Name]
+Compile using: WinAsm (masm32)
 
 Usage:
 Use IAT Patcher to hook your program with chosen library.
-See the examples at: http://hasherezade.net/IAT_patcher
+See the examples at: 
+http://hasherezade.net/IAT_patcher
 
