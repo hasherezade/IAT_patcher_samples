@@ -1,17 +1,18 @@
-Sample library for IAT Patcher
-http://hasherezade.net/IAT_patcher
-compile using WinAsm (masm32) : http://www.winasm.net
----
-Purpose:
-Prints list of dynamically loaded modules and functions. 
+Sample library for IAT Patcher<br/>
+http://hasherezade.net/IAT_patcher<br/>
+compile using WinAsm (masm32)<br/>
 
-Format:
-[return_address]; loaded [Name]
+Purpose:<br/>
+Prints list of dynamically loaded modules and functions. <br/>
 
-Example:
+Output is saved in file: "ProcList.txt"<br/>
+Format:<br/>
+[return_address]; loaded [Name]<br/>
+
+Example:<br/>
 19aa50; loaded: KERNEL32.DLL
 19aa6e; loaded: SystemTimeToFileTime
 19aa6e; loaded: SetEvent
 
-Usage:
+Usage:<br/>
 Use IAT Patcher to hook your program.
