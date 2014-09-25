@@ -10,9 +10,9 @@ Format:<br/>
 [return_address]; loaded [Name]<br/>
 
 Example:<br/>
-19aa50; loaded: KERNEL32.DLL
-19aa6e; loaded: SystemTimeToFileTime
-19aa6e; loaded: SetEvent
+19aa50; loaded: KERNEL32.DLL<br/><br/><br/>
+19aa6e; loaded: SystemTimeToFileTime<br/><br/>
+19aa6e; loaded: SetEvent<br/>
 
 Usage:<br/>
 Use IAT Patcher to hook your program.
