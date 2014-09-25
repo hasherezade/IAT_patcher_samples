@@ -1,0 +1,3 @@
+LIBRARY ShowProc
+EXPORTS PrintProcName
+EXPORTS PrintLibNameA
