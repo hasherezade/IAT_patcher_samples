@@ -10,8 +10,8 @@ Format:<br/>
 [return_address]; loaded [Name]<br/>
 
 Example:<br/>
-19aa50; loaded: KERNEL32.DLL<br/><br/><br/>
-19aa6e; loaded: SystemTimeToFileTime<br/><br/>
+19aa50; loaded: KERNEL32.DLL<br/>
+19aa6e; loaded: SystemTimeToFileTime<br/>
 19aa6e; loaded: SetEvent<br/>
 
 Usage:<br/>
