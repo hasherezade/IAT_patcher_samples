@@ -18,8 +18,8 @@ includelib msvcrt.lib
 szFileFmt db 'w',0
 szFileName db 'ProcList.txt',0
 
-szFmtS db '%x; loaded: %s', 0dh,0ah,0
-szFmtOrd db '%x; loaded: <ord: %ld>', 0dh,0ah,0
+szFmtS db '%x; loaded: %s', 0ah, 0dh,0
+szFmtOrd db '%x; loaded: <ord: %ld>', 0ah, 0dh,0
 
 .data?
 hFile  HANDLE ?
