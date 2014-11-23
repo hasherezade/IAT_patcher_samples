@@ -14,5 +14,5 @@ GDI32.dll.SetTextColor -> MyLib.dll.MyTextColor<br/>
 
 Compiled:
 --
-http://hasherezade.net/IAT_patcher/sample/32b/MyLib.dll
-http://hasherezade.net/IAT_patcher/sample/64b/MyLib.dll
++ http://hasherezade.net/IAT_patcher/sample/32b/MyLib.dll
++ http://hasherezade.net/IAT_patcher/sample/64b/MyLib.dll
