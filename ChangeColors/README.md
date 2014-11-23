@@ -1,4 +1,4 @@
-ShowProc - sample library for IAT Patcher
+ChangeColors - sample library for IAT Patcher
 --
 http://hasherezade.net/IAT_patcher<br/>
 
