@@ -16,3 +16,7 @@ Compiled:
 --
 + http://hasherezade.net/IAT_patcher/sample/32b/MyLib.dll
 + http://hasherezade.net/IAT_patcher/sample/64b/MyLib.dll
+
+Sample result of patching:
+---
+![](http://hasherezade.net/IAT_patcher/pics/iat_p3.png)
