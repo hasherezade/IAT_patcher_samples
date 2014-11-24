@@ -4,7 +4,7 @@ ChangeColors - sample library for IAT Patcher* (C/C++)
 
 Purpose:<br/>
 -
-Changes text color for a random color
+Changes text color to a random color
 
 Usage:<br/>
 --
