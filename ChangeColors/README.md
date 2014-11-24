@@ -1,6 +1,6 @@
-ChangeColors - sample library for IAT Patcher
+ChangeColors - sample library for IAT Patcher* (C/C++)
 --
-http://hasherezade.net/IAT_patcher<br/>
+*http://hasherezade.net/IAT_patcher<br/>
 
 Purpose:<br/>
 -
