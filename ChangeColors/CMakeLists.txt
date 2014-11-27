@@ -9,4 +9,4 @@ set (hdrs
     main.h
 )
 
-add_library (MyLib SHARED ${hdrs} ${srcs} )
+add_library (MyLib SHARED ${hdrs} ${srcs} main.def)

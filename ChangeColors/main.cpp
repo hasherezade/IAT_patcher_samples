@@ -1,6 +1,6 @@
 #include "main.h"
 
-COLORREF MyTextColor(HDC hdc, COLORREF crColor)
+COLORREF  __stdcall MyTextColor(HDC hdc, COLORREF crColor)
 {
     srand (time(NULL));
     DWORD colorBuf = rand();

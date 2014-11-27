@@ -1,0 +1,2 @@
+LIBRARY MyLib
+EXPORTS MyTextColor
