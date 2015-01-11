@@ -4,13 +4,14 @@ ChangeColors - sample library for IAT Patcher* (C/C++)
 
 Purpose:<br/>
 -
-Changes text color to a random color
+Changes default color set of the hooked application.
 
 Usage:<br/>
 --
 Use IAT Patcher to hook your program.<br/>
 <b>Replace:</b><br/>
-GDI32.dll.SetTextColor -> MyLib.dll.MyTextColor<br/>
+GDI32.dll.SetTextColor -> MyLib.dll.MyTextColor (changes text color to a random color)<br/>
+USER32.dll.GetSysColor -> MyLib.dll.MySysColor (applies colorset defined in file: colors.cfg)<br/>
 
 Compiled:
 --
