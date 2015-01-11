@@ -20,7 +20,14 @@ void readColors()
     while (!feof(fp)) {
         DWORD index;
         DWORD color;
+
         fscanf(fp, "%d:%x", &index, &color);
+
+        DWORD red = (color & 0xFF0000) >> 16;
+        DWORD green = (color & 0x00FF00) >> 8;
+        DWORD blue = (color & 0x0000FF);
+
+        color = RGB(red, green, blue);
         g_IndexToColor[index] = color;
     }
     fclose(fp);
