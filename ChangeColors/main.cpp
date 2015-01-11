@@ -17,11 +17,16 @@ void readColors()
     FILE *fp = fopen("colors.cfg", "r");
     if (fp == NULL) return;
 
-    while (!feof(fp)) {
-        DWORD index;
-        DWORD color;
+    const size_t strSize = 101;
+    char mystring[strSize];
+    DWORD index = 0;
+    DWORD color = 0;
 
-        fscanf(fp, "%d:%x", &index, &color);
+    while (!feof(fp)) {
+
+        if (fgets (mystring , strSize - 1 , fp) == NULL) continue;
+
+        sscanf(mystring, "%d:%x", &index, &color);
 
         DWORD red = (color & 0xFF0000) >> 16;
         DWORD green = (color & 0x00FF00) >> 8;
