@@ -10,6 +10,6 @@ http://hasherezade.net/IAT_patcher
 IAT Patcher:<br/>
 ---
 Download:
-http://hasherezade.net/IAT_patcher<br/>
+https://github.com/hasherezade/IAT_patcher/releases<br/>
 Source: https://github.com/hasherezade/IAT_patcher<br/><br/>
 ![](http://hasherezade.net/IAT_patcher/pics/0.3.4.png)
