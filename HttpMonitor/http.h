@@ -7,6 +7,13 @@
 
 extern "C" {
 
+    HINTERNET __declspec(dllexport) __stdcall _winHttpConnect(
+        IN HINTERNET hSession,
+        IN LPCWSTR pswzServerName,
+        IN INTERNET_PORT nServerPort,
+        _Reserved_ DWORD dwReserved
+    );
+
 	HINTERNET __declspec(dllexport) __stdcall _winHttpOpenRequest(IN HINTERNET hConnect,
 		IN LPCWSTR pwszVerb,
 		IN LPCWSTR pwszObjectName,
@@ -25,5 +32,12 @@ extern "C" {
 		IN DWORD dwTotalLength,
 		IN DWORD_PTR dwContext
 	);
+
+BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
+  IN HINTERNET hRequest,
+  OUT LPVOID lpBuffer,
+  IN DWORD dwNumberOfBytesToRead,
+  OUT LPDWORD lpdwNumberOfBytesRead
+);
 
 };

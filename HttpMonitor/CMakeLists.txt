@@ -6,12 +6,14 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 
 set (srcs
     main.cpp
+	util.cpp
 	crypt.cpp
 	http.cpp
 )
 
 set (hdrs
     main.h
+	util.h
 	crypt.h
 	http.h
 )

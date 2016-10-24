@@ -1,4 +1,7 @@
 LIBRARY MyLib
+EXPORTS _winHttpConnect
 EXPORTS _winHttpOpenRequest
 EXPORTS _winHttpSendRequest
+EXPORTS _winHttpReadData
 EXPORTS _cryptDecrypt
+EXPORTS _cryptEncrypt
