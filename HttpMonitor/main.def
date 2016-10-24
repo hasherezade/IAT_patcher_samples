@@ -1,0 +1,4 @@
+LIBRARY MyLib
+EXPORTS _winHttpOpenRequest
+EXPORTS _winHttpSendRequest
+EXPORTS _cryptDecrypt
