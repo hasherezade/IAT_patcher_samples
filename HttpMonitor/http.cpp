@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "util.h"
 
-#define LOG_NAME "_winHttpOpenRequest.log"
+#define LOG_NAME "HttpMonitor.log"
 
 using namespace std;
 
