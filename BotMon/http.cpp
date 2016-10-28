@@ -49,7 +49,9 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
         Logger::append("[HTTP][/optional]");
     }
     BOOL res = WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext);
-    //TODO: log the result
+    if (res == FALSE) {
+        Logger::append("[HTTP] Failed");
+    }
     return res;
 }
 
@@ -67,6 +69,9 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
     if (*lpdwNumberOfBytesRead != 0) {
         Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
+        if (search_pe_hdr((BYTE*)lpBuffer, *lpdwNumberOfBytesRead)) {
+            Logger::append("[HTTP] PE HEADER detected!");
+        }
     }
     return res;
 }

@@ -15,6 +15,10 @@ BOOL __declspec(dllexport) __stdcall _writeProcessMemory(
     dump_binary(out_filename, (BYTE*)lpBuffer, nSize);
     Logger::append("[PROCESSWRITE] %u saved to: %s\n", nSize, out_filename);
 
+    if (search_pe_hdr((BYTE*)lpBuffer, nSize)) {
+        Logger::append("[PROCESSWRITE] PE HEADER detected!");
+    }
+
     BOOL res = WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesWritten);
     if (res == FALSE) Logger::append("[PROCESSWRITE] Failed");
     return res;

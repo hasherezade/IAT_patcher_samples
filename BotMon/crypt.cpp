@@ -24,6 +24,9 @@ BOOL __stdcall _cryptDecrypt(
     make_out_filename(DIRNAME, "decrypted", out_filename);
     dump_binary(out_filename, pbData, *pdwDataLen);
     Logger::append("[DECRYPT] %u output saved to: %s\n", *pdwDataLen, out_filename);
+    if (search_pe_hdr((BYTE*)pbData, *pdwDataLen)) {
+        Logger::append("[DECRYPT] PE HEADER detected!");
+    }
     return res;
 }
 
