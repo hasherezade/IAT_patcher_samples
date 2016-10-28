@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project (MyLib)
+project (BotMon)
 
 add_definitions(-DUNICODE -D_UNICODE)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
@@ -22,4 +22,4 @@ set (hdrs
 	processmod.h
 )
 
-add_library (MyLib SHARED ${hdrs} ${srcs} main.def)
+add_library (BotMon SHARED ${hdrs} ${srcs} main.def)

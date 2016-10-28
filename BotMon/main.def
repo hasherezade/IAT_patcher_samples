@@ -1,4 +1,4 @@
-LIBRARY MyLib
+LIBRARY BotMon
 EXPORTS _winHttpConnect
 EXPORTS _winHttpOpenRequest
 EXPORTS _winHttpSendRequest
