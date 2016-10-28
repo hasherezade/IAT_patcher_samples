@@ -11,8 +11,7 @@ HINTERNET __stdcall _winHttpConnect(
     IN INTERNET_PORT nServerPort,
     _Reserved_ DWORD dwReserved)
 {
-    Logger::append("Connecting...");
-    Logger::append("[CONN]   %S:%u", pswzServerName, static_cast<unsigned int>(nServerPort));
+    Logger::append("[HTTP][conn] %S:%u", pswzServerName, static_cast<unsigned int>(nServerPort));
     return WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved);
 }
 
@@ -24,9 +23,9 @@ HINTERNET __stdcall _winHttpOpenRequest(IN HINTERNET hConnect,
     IN LPCWSTR FAR * ppwszAcceptTypes OPTIONAL,
     IN DWORD dwFlags)
 {
-    if (pwszVerb) Logger::append("[VERB]   %S", pwszVerb);
-    if (pwszVersion) Logger::append("[VERSIO] %S", pwszVersion);
-    if (pwszObjectName) Logger::append("[OBJECT] %S", pwszObjectName);
+    if (pwszVerb) Logger::append("[HTTP][verb] %S", pwszVerb);
+    if (pwszVersion) Logger::append("[HTTP][vers] %S", pwszVersion);
+    if (pwszObjectName) Logger::append("[HTTP][obj ] %S", pwszObjectName);
 
     HINTERNET res = WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags);
      //TODO: log the result
@@ -42,12 +41,12 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
     IN DWORD_PTR dwContext)
 {
     if (dwHeadersLength != 0 && lpszHeaders != NULL) {
-        Logger::append("[HEADER] %S", lpszHeaders);
+        Logger::append("[HTTP][header] %S", lpszHeaders);
     }
     if (dwOptionalLength != 0) {
-        Logger::append("[OPTIONAL]");
+        Logger::append("[HTTP][optional]");
         Logger::append_raw(lpOptional, dwOptionalLength);
-        Logger::append("[/OPTIONAL]");
+        Logger::append("[HTTP][/optional]");
     }
     BOOL res = WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext);
     //TODO: log the result
@@ -67,7 +66,7 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     make_out_filename(L"responses", out_filename);
     dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
     if (*lpdwNumberOfBytesRead != 0) {
-        Logger::append("[RECEIVED] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
+        Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
     }
     return res;
 }
