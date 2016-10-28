@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void make_out_filename(LPWSTR dirname, LPSTR out_filename)
+void make_out_filename(const LPWSTR dirname, const LPCSTR prefix, LPSTR out_filename)
 {
     CreateDirectory(dirname, NULL);
     static time_t t1 = 0;
@@ -11,7 +11,7 @@ void make_out_filename(LPWSTR dirname, LPSTR out_filename)
         t1 = time(NULL);
         srand(t1);
     }
-    _snprintf(out_filename, MAX_PATH, "%S\\%llu_%u.bin", dirname, time(NULL), (unsigned int)rand());
+    _snprintf(out_filename, MAX_PATH, "%S\\%s_%llu_%u.bin", dirname, prefix, time(NULL), (unsigned int)rand());
 }
 
 BOOL dump_binary(LPSTR out_filename, BYTE *pbData, DWORD dwDataLen)

@@ -63,7 +63,7 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     if (res == FALSE) return FALSE;
 
     char out_filename[MAX_PATH];
-    make_out_filename(L"responses", out_filename);
+    make_out_filename(DIRNAME, "responses", out_filename);
     dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
     if (*lpdwNumberOfBytesRead != 0) {
         Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);

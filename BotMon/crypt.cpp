@@ -21,7 +21,7 @@ BOOL __stdcall _cryptDecrypt(
         return res;
     }
     char out_filename[MAX_PATH];
-    make_out_filename(L"decrypted", out_filename);
+    make_out_filename(DIRNAME, "decrypted", out_filename);
     dump_binary(out_filename, pbData, *pdwDataLen);
     Logger::append("[DECRYPT] %u output saved to: %s\n", *pdwDataLen, out_filename);
     return res;
@@ -39,7 +39,7 @@ BOOL __declspec (dllexport) __stdcall _cryptEncrypt(
 {
     if (*pdwDataLen != 0) {
         char out_filename[MAX_PATH];
-        make_out_filename(L"before_encryption", out_filename);
+        make_out_filename(DIRNAME, "before_encryption", out_filename);
         dump_binary(out_filename, pbData, *pdwDataLen);
         Logger::append("[ENCRYPT] %u input saved to: %s\n", *pdwDataLen, out_filename);
     }

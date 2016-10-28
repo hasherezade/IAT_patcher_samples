@@ -11,7 +11,7 @@ BOOL __declspec(dllexport) __stdcall _writeProcessMemory(
 )
 {
     char out_filename[MAX_PATH];
-    make_out_filename(L"write_mem", out_filename);
+    make_out_filename(DIRNAME, "write_mem", out_filename);
     dump_binary(out_filename, (BYTE*)lpBuffer, nSize);
     Logger::append("[PROCESSWRITE] %u saved to: %s\n", nSize, out_filename);
 

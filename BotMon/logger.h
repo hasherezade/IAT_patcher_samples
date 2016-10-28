@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "util.h"
 
+#define DIRNAME L"BotMon"
+
 #define MAX_LINE 1024
 
 namespace Logger
