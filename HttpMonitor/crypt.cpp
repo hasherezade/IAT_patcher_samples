@@ -1,7 +1,8 @@
 #include "crypt.h"
 #include <stdio.h>
 #include <time.h>
-#include "util.h"
+
+#include "logger.h"
 
 using namespace std;
 
@@ -15,11 +16,14 @@ BOOL __stdcall _cryptDecrypt(
     )
 {
     BOOL res = CryptDecrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen);
-    if (res == FALSE) return res;
-
+    if (res == FALSE) {
+        Logger::append("[DECRYPT] Failed");
+        return res;
+    }
     char out_filename[MAX_PATH];
     make_out_filename(L"decrypted", out_filename);
     dump_binary(out_filename, pbData, *pdwDataLen);
+    Logger::append("[DECRYPT] %u output saved to: %s\n", *pdwDataLen, out_filename);
     return res;
 }
 
@@ -33,10 +37,15 @@ BOOL __declspec (dllexport) __stdcall _cryptEncrypt(
     IN DWORD   dwBufLen
     )
 {
-    char out_filename[MAX_PATH];
-    make_out_filename(L"before_encryption", out_filename);
-    dump_binary(out_filename, pbData, *pdwDataLen);
-
+    if (*pdwDataLen != 0) {
+        char out_filename[MAX_PATH];
+        make_out_filename(L"before_encryption", out_filename);
+        dump_binary(out_filename, pbData, *pdwDataLen);
+        Logger::append("[ENCRYPT] %u input saved to: %s\n", *pdwDataLen, out_filename);
+    }
     BOOL res = CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen);
+    if (res == FALSE) {
+        Logger::append("[ENCRYPT] Failed");
+    }
     return res; 
 }

@@ -1,5 +1,6 @@
 #include "crypt.h"
 #include "http.h"
+#include "processmod.h"
 
 using namespace std;
 

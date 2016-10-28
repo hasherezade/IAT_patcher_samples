@@ -1,8 +1,7 @@
 #include "http.h"
 #include <stdio.h>
-#include "util.h"
 
-#define LOG_NAME "HttpMonitor.log"
+#include "logger.h"
 
 using namespace std;
 
@@ -12,11 +11,8 @@ HINTERNET __stdcall _winHttpConnect(
     IN INTERNET_PORT nServerPort,
     _Reserved_ DWORD dwReserved)
 {
-    FILE *fp = fopen(LOG_NAME, "a+");
-    if (fp != NULL) {
-        fprintf(fp, "[CONN]   %S:%u\n", pswzServerName, static_cast<unsigned int>(nServerPort));
-        fclose(fp);
-    }
+    Logger::append("Connecting...");
+    Logger::append("[CONN]   %S:%u", pswzServerName, static_cast<unsigned int>(nServerPort));
     return WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved);
 }
 
@@ -28,14 +24,12 @@ HINTERNET __stdcall _winHttpOpenRequest(IN HINTERNET hConnect,
     IN LPCWSTR FAR * ppwszAcceptTypes OPTIONAL,
     IN DWORD dwFlags)
 {
-    FILE *fp = fopen(LOG_NAME, "a+");
-    if (fp != NULL) {
-        fprintf(fp, "[VERB]   %S\n", pwszVerb);
-        fprintf(fp, "[VERSIO] %S\n", pwszVersion);
-        fprintf(fp, "[OBJECT] %S\n", pwszObjectName);
-        fclose(fp);
-    }
+    if (pwszVerb) Logger::append("[VERB]   %S", pwszVerb);
+    if (pwszVersion) Logger::append("[VERSIO] %S", pwszVersion);
+    if (pwszObjectName) Logger::append("[OBJECT] %S", pwszObjectName);
+
     HINTERNET res = WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags);
+     //TODO: log the result
     return res;
 }
 
@@ -47,19 +41,16 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
     IN DWORD dwTotalLength,
     IN DWORD_PTR dwContext)
 {
-    FILE *fp = fopen(LOG_NAME, "a+");
-    if (fp != NULL) {
-        if (dwHeadersLength != 0) {
-            fprintf(fp, "[HEADER] %S\n", lpszHeaders);
-        }
-        if (dwOptionalLength != 0) {
-            fprintf(fp, "[OPTIONAL]\n");
-            fwrite(lpOptional, 1, dwOptionalLength, fp);
-            fprintf(fp, "\n[/OPTIONAL]\n");
-        }
-        fclose(fp);
+    if (dwHeadersLength != 0 && lpszHeaders != NULL) {
+        Logger::append("[HEADER] %S", lpszHeaders);
+    }
+    if (dwOptionalLength != 0) {
+        Logger::append("[OPTIONAL]");
+        Logger::append_raw(lpOptional, dwOptionalLength);
+        Logger::append("[/OPTIONAL]");
     }
     BOOL res = WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext);
+    //TODO: log the result
     return res;
 }
 
@@ -75,13 +66,8 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     char out_filename[MAX_PATH];
     make_out_filename(L"responses", out_filename);
     dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
-
-    FILE *fp = fopen(LOG_NAME, "a+");
-    if (fp != NULL) {
-        if (*lpdwNumberOfBytesRead != 0) {
-            fprintf(fp, "[RECEIVED] %u saved to: %s\n", *lpdwNumberOfBytesRead, out_filename);
-        }
-        fclose(fp);
+    if (*lpdwNumberOfBytesRead != 0) {
+        Logger::append("[RECEIVED] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
     }
     return res;
 }
