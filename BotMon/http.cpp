@@ -3,8 +3,6 @@
 
 #include "logger.h"
 
-using namespace std;
-
 HINTERNET __stdcall _winHttpConnect(
     IN HINTERNET hSession,
     IN LPCWSTR pswzServerName,
@@ -47,6 +45,7 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
         Logger::append("[HTTP][optional]");
         Logger::append_raw(lpOptional, dwOptionalLength, FALSE);
         Logger::append("[HTTP][/optional]");
+        Logger::logged_binary_dump(DIRNAME, "post", "[HTTP][optional]", lpOptional, dwOptionalLength);
     }
     BOOL res = WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext);
     if (res == FALSE) {
@@ -64,17 +63,22 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     BOOL res = WinHttpReadData(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead);
     if (res == FALSE) return FALSE;
 
-    char out_filename[MAX_PATH];
-    make_out_filename(DIRNAME, "responses", out_filename);
-    dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
     if (*lpdwNumberOfBytesRead == 0) return res;
+    DWORD printableSize = 0;
+    if (has_printable_line(lpBuffer, *lpdwNumberOfBytesRead)) {
+        Logger::append("[HTTP][response]");
+        printableSize = Logger::append_raw(lpBuffer, *lpdwNumberOfBytesRead, TRUE);
+        Logger::append("[HTTP][/response]");
+    
+    //dump the raw content into a file:
+    Logger::logged_binary_dump(DIRNAME, "responses", "[HTTP][rcvd]", lpBuffer, *lpdwNumberOfBytesRead);
 
-    Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
+    //check for a PE file:
     if (search_pe_hdr((BYTE*)lpBuffer, *lpdwNumberOfBytesRead)) {
         Logger::append("[HTTP] PE HEADER detected!");
     }
-    Logger::append_raw(lpBuffer, *lpdwNumberOfBytesRead, TRUE);
-    /*const char blacklisted[] ="/25/";
+    /*
+    const char blacklisted[] ="/25/";
     if (starts_with(lpBuffer, *lpdwNumberOfBytesRead, blacklisted)) {
         // this is the blacklisted command!
         return FALSE;

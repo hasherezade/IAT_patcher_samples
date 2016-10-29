@@ -3,28 +3,6 @@
 #include <stdio.h>
 #include <time.h>
 
-void make_out_filename(const LPWSTR dirname, const LPCSTR prefix, LPSTR out_filename)
-{
-    CreateDirectory(dirname, NULL);
-    static time_t t1 = 0;
-    if (time == 0) {
-        t1 = time(NULL);
-        srand(t1);
-    }
-    _snprintf(out_filename, MAX_PATH, "%S\\%s_%llu_%u.bin", dirname, prefix, time(NULL), (unsigned int)rand());
-}
-
-BOOL dump_binary(LPSTR out_filename, BYTE *pbData, DWORD dwDataLen)
-{
-    FILE *fp = fopen(out_filename, "wb");
-    if (fp == NULL) return FALSE;
-    if (dwDataLen != 0) {
-        fwrite(pbData, 1, dwDataLen, fp);
-    }
-    fclose(fp);
-    return TRUE;
-}
-
 IMAGE_NT_HEADERS* get_nt_hrds(BYTE *pe_buffer)
 {
     if (pe_buffer == NULL) return NULL;
@@ -60,4 +38,21 @@ BOOL starts_with(LPVOID buffer, DWORD bufferSize, LPCSTR keyword)
         return TRUE;
     }
     return FALSE;
+}
+
+BOOL has_printable_line(LPVOID buffer, DWORD bufferSize)
+{
+    if (bufferSize == 0) return FALSE;
+
+    DWORD i = 0;
+    for (; i < bufferSize; i++) {
+        char c = ((char*)buffer)[i];
+        if (!isprint(c)) {
+            if (i > 0 && (c == '\0' || c == '\n')) {
+                return TRUE;
+            }
+            return FALSE;
+        }
+    }
+    return TRUE;
 }

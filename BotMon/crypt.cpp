@@ -20,10 +20,9 @@ BOOL __stdcall _cryptDecrypt(
         Logger::append("[DECRYPT] Failed");
         return res;
     }
-    char out_filename[MAX_PATH];
-    make_out_filename(DIRNAME, "decrypted", out_filename);
-    dump_binary(out_filename, pbData, *pdwDataLen);
-    Logger::append("[DECRYPT] %u output saved to: %s\n", *pdwDataLen, out_filename);
+    if (pdwDataLen != NULL) {
+        Logger::logged_binary_dump(DIRNAME, "decrypted", "[DECRYPT]", pbData, *pdwDataLen);
+    }
     if (search_pe_hdr((BYTE*)pbData, *pdwDataLen)) {
         Logger::append("[DECRYPT] PE HEADER detected!");
     }
@@ -40,11 +39,8 @@ BOOL __declspec (dllexport) __stdcall _cryptEncrypt(
     IN DWORD   dwBufLen
     )
 {
-    if (*pdwDataLen != 0) {
-        char out_filename[MAX_PATH];
-        make_out_filename(DIRNAME, "before_encryption", out_filename);
-        dump_binary(out_filename, pbData, *pdwDataLen);
-        Logger::append("[ENCRYPT] %u input saved to: %s\n", *pdwDataLen, out_filename);
+    if (pdwDataLen != NULL) {
+        Logger::logged_binary_dump(DIRNAME, "before_encryption", "[ENCRYPT]", pbData, *pdwDataLen);
     }
     BOOL res = CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen);
     if (res == FALSE) {

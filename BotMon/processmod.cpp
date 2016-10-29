@@ -10,10 +10,7 @@ BOOL __declspec(dllexport) __stdcall _writeProcessMemory(
     _Out_opt_ SIZE_T * lpNumberOfBytesWritten
 )
 {
-    char out_filename[MAX_PATH];
-    make_out_filename(DIRNAME, "write_mem", out_filename);
-    dump_binary(out_filename, (BYTE*)lpBuffer, nSize);
-    Logger::append("[PROCESSWRITE] %u saved to: %s\n", nSize, out_filename);
+    Logger::logged_binary_dump(DIRNAME, "write_mem", "[PROCESSWRITE]", (BYTE*)lpBuffer, nSize);
 
     if (search_pe_hdr((BYTE*)lpBuffer, nSize)) {
         Logger::append("[PROCESSWRITE] PE HEADER detected!");
