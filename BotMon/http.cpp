@@ -45,7 +45,7 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
     }
     if (dwOptionalLength != 0) {
         Logger::append("[HTTP][optional]");
-        Logger::append_raw(lpOptional, dwOptionalLength);
+        Logger::append_raw(lpOptional, dwOptionalLength, FALSE);
         Logger::append("[HTTP][/optional]");
     }
     BOOL res = WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext);
@@ -67,11 +67,17 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
     char out_filename[MAX_PATH];
     make_out_filename(DIRNAME, "responses", out_filename);
     dump_binary(out_filename, (BYTE*) lpBuffer, *lpdwNumberOfBytesRead);
-    if (*lpdwNumberOfBytesRead != 0) {
-        Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
-        if (search_pe_hdr((BYTE*)lpBuffer, *lpdwNumberOfBytesRead)) {
-            Logger::append("[HTTP] PE HEADER detected!");
-        }
+    if (*lpdwNumberOfBytesRead == 0) return res;
+
+    Logger::append("[HTTP][rcvd] %u saved to: %s", *lpdwNumberOfBytesRead, out_filename);
+    if (search_pe_hdr((BYTE*)lpBuffer, *lpdwNumberOfBytesRead)) {
+        Logger::append("[HTTP] PE HEADER detected!");
     }
+    Logger::append_raw(lpBuffer, *lpdwNumberOfBytesRead, TRUE);
+    /*const char blacklisted[] ="/25/";
+    if (starts_with(lpBuffer, *lpdwNumberOfBytesRead, blacklisted)) {
+        // this is the blacklisted command!
+        return FALSE;
+    }*/
     return res;
 }

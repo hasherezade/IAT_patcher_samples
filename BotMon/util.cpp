@@ -50,3 +50,14 @@ LPVOID search_pe_hdr(BYTE *buf, DWORD buf_size)
     }
     return NULL;
 }
+
+BOOL starts_with(LPVOID buffer, DWORD bufferSize, LPCSTR keyword)
+{
+    const DWORD check_size = static_cast<DWORD>(strlen(keyword));
+    if (bufferSize < check_size) return FALSE;
+
+    if (memcmp(buffer, keyword, check_size) == 0) {
+        return TRUE;
+    }
+    return FALSE;
+}

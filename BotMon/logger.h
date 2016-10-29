@@ -10,6 +10,6 @@
 namespace Logger
 {
     BOOL append(const char* format, ...);
-    BOOL append_raw(LPVOID lpOptional, const DWORD dwOptionalLength);
+    BOOL append_raw(LPVOID lpOptional, const DWORD dwOptionalLength, BOOL stopOnNonPrintable);
 };
 
