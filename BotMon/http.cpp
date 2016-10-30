@@ -69,7 +69,7 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
         Logger::append("[HTTP][response]");
         printableSize = Logger::append_raw(lpBuffer, *lpdwNumberOfBytesRead, TRUE);
         Logger::append("[HTTP][/response]");
-    
+    }
     //dump the raw content into a file:
     Logger::logged_binary_dump(DIRNAME, "responses", "[HTTP][rcvd]", lpBuffer, *lpdwNumberOfBytesRead);
 
