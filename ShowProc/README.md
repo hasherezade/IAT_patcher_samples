@@ -1,6 +1,6 @@
 ShowProc - sample library for IAT Patcher* (masm32/WinAsm)
 --
-*http://hasherezade.net/IAT_patcher<br/>
+*https://github.com/hasherezade/IAT_patcher<br/>
 
 Purpose:<br/>
 -
