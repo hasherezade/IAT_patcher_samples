@@ -1,6 +1,5 @@
 ; CC-BY: hasherezade
 ; Sample library for IAT Patcher
-; http://hasherezade.net/IAT_patcher/
 
 .386
 .model flat,stdcall
