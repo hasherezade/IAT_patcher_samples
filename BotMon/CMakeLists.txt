@@ -10,6 +10,7 @@ set (srcs
 	logger.cpp
 	crypt.cpp
 	http.cpp
+	inet.cpp
 	processmod.cpp
 )
 
@@ -19,6 +20,7 @@ set (hdrs
 	logger.h
 	crypt.h
 	http.h
+	inet.h
 	processmod.h
 )
 

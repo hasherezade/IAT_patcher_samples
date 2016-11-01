@@ -33,11 +33,11 @@ extern "C" {
 		IN DWORD_PTR dwContext
 	);
 
-BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
-  IN HINTERNET hRequest,
-  OUT LPVOID lpBuffer,
-  IN DWORD dwNumberOfBytesToRead,
-  OUT LPDWORD lpdwNumberOfBytesRead
-);
+    BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
+        IN HINTERNET hRequest,
+        OUT LPVOID lpBuffer,
+        IN DWORD dwNumberOfBytesToRead,
+        OUT LPDWORD lpdwNumberOfBytesRead
+    );
 
 };

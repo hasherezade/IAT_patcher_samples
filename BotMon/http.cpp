@@ -9,6 +9,7 @@ HINTERNET __stdcall _winHttpConnect(
     IN INTERNET_PORT nServerPort,
     _Reserved_ DWORD dwReserved)
 {
+
     Logger::append("[HTTP][conn] %S:%u", pswzServerName, static_cast<unsigned int>(nServerPort));
     return WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved);
 }
@@ -26,7 +27,9 @@ HINTERNET __stdcall _winHttpOpenRequest(IN HINTERNET hConnect,
     if (pwszObjectName) Logger::append("[HTTP][obj ] %S", pwszObjectName);
 
     HINTERNET res = WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags);
-     //TODO: log the result
+    if (res == FALSE) {
+        Logger::append("[HTTP] Failed");
+    }
     return res;
 }
 

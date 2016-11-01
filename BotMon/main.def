@@ -1,8 +1,14 @@
 LIBRARY BotMon
+
 EXPORTS _winHttpConnect
 EXPORTS _winHttpOpenRequest
 EXPORTS _winHttpSendRequest
 EXPORTS _winHttpReadData
+
+EXPORTS _httpOpenRequestW
+EXPORTS _httpOpenRequestA
+
 EXPORTS _cryptDecrypt
 EXPORTS _cryptEncrypt
+
 EXPORTS _writeProcessMemory
