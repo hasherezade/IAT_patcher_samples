@@ -6,4 +6,5 @@ Allows to monitor usage of:<br/>
 + encrypting/decrypting using Windows Crypto API
 + writng into process memory
 
-Writes information about the event into a system log - and dumps the binary content into a specific folders.
+Writes information about the event into a system log - and dumps the binary content into a specific folders.<br/>
+Builds (32 and 64bit): https://drive.google.com/open?id=0Bzb5kQFOXkiSeHRnd1hDX3BYQzA
