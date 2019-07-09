@@ -6,6 +6,23 @@
 
 using namespace std;
 
+BOOL
+_stdcall
+_cryptImportKey(
+    _In_                    HCRYPTPROV  hProv,
+    _In_reads_bytes_(dwDataLen)  CONST BYTE  *pbData,
+    _In_                    DWORD       dwDataLen,
+    _In_                    HCRYPTKEY   hPubKey,
+    _In_                    DWORD       dwFlags,
+    _Out_                   HCRYPTKEY   *phKey
+)
+{
+    if (pbData != NULL) {
+        Logger::logged_binary_dump(DIRNAME, "crypt_key", "[CRYPT]", (LPVOID)pbData, dwDataLen);
+    }
+    return CryptImportKey(hProv, pbData, dwDataLen, hPubKey, dwFlags, phKey);
+}
+
 BOOL __stdcall _cryptDecrypt(
     IN HCRYPTKEY   hKey,
     IN HCRYPTHASH  hHash,
