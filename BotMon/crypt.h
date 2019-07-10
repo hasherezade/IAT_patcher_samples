@@ -1,7 +1,6 @@
 #pragma once 
 
 #include <windows.h>
-#include <winhttp.h>
 #include <wincrypt.h>
 
 #pragma comment(lib, "crypt32.lib")
@@ -23,6 +22,13 @@ extern "C" {
         _In_        DWORD       dwProvType,
         _In_        DWORD       dwFlags
     );
+
+    BOOL _stdcall _cryptGenRandomDummy(
+        _In_                    HCRYPTPROV  hProv,
+        _In_                    DWORD   dwLen,
+        _Inout_updates_bytes_(dwLen)   BYTE    *pbBuffer
+    );
+
 
     BOOL __declspec(dllexport) _stdcall _cryptImportKey(
         _In_                    HCRYPTPROV  hProv,

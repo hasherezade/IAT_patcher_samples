@@ -42,6 +42,22 @@ _cryptAcquireContextW(
 
 BOOL
 _stdcall
+_cryptGenRandomDummy(
+    _In_                    HCRYPTPROV  hProv,
+    _In_                    DWORD   dwLen,
+    _Inout_updates_bytes_(dwLen)   BYTE    *pbBuffer
+)
+{
+    Logger::append("[CRYPT] CryptGenRandom intercepted: dwLen =  %d", dwLen);
+    BOOL is_ok = CryptGenRandom(hProv, dwLen, pbBuffer);
+    if (is_ok) {
+        memset(pbBuffer, '7', dwLen);
+    }
+    return is_ok;
+}
+
+BOOL
+_stdcall
 _cryptImportKey(
     _In_                    HCRYPTPROV  hProv,
     _In_reads_bytes_(dwDataLen)  CONST BYTE  *pbData,

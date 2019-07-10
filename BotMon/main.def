@@ -8,4 +8,5 @@ EXPORTS _cryptEncrypt
 EXPORTS _cryptImportKey
 EXPORTS _cryptAcquireContextA
 EXPORTS _cryptAcquireContextW
+EXPORTS _cryptGenRandomDummy
 EXPORTS _writeProcessMemory
