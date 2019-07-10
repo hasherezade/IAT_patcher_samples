@@ -17,5 +17,3 @@ BOOL WINAPI DllMain (HANDLE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
  
     return TRUE;
 }
- 
-

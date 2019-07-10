@@ -4,7 +4,7 @@
 
 extern "C" {
 
-	BOOL __declspec(dllexport) __stdcall _writeProcessMemory(
+    BOOL __declspec(dllexport) __stdcall _writeProcessMemory(
         IN HANDLE hProcess,
         IN LPVOID lpBaseAddress,
         _In_reads_bytes_(nSize) LPCVOID lpBuffer,
