@@ -6,4 +6,6 @@ EXPORTS _winHttpReadData
 EXPORTS _cryptDecrypt
 EXPORTS _cryptEncrypt
 EXPORTS _cryptImportKey
+EXPORTS _cryptAcquireContextA
+EXPORTS _cryptAcquireContextW
 EXPORTS _writeProcessMemory

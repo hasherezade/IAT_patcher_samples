@@ -1,6 +1,8 @@
 #include "logger.h"
+
 #include <stdarg.h>
 #include <ctype.h>
+#include <wtypes.h>
 #include <time.h>
 
 void make_out_filename(const LPWSTR dirname, const LPCSTR prefix, LPSTR out_filename)
@@ -55,6 +57,26 @@ BOOL Logger::append(const char* format, ...)
     if (printed <= 0) return FALSE;
 
     OutputDebugStringA(line);
+    return TRUE;
+}
+
+BOOL Logger::appendW(const wchar_t* format, ...)
+{
+    if (format == NULL) {
+        return FALSE;
+    }
+    va_list argptr;
+    // Initializing arguments to store all values after format
+    va_start(argptr, format);
+    _locale_t locale = { 0 };
+    wchar_t line[MAX_LINE];
+    int printed = _vsnwprintf_s(line, MAX_LINE, format, argptr);
+
+    //cleaning up the list:
+    va_end(argptr);
+    if (printed <= 0) return FALSE;
+
+    OutputDebugStringW(line);
     return TRUE;
 }
 

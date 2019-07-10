@@ -11,6 +11,8 @@ namespace Logger
 {
     BOOL append(const char* format, ...);
 
+    BOOL appendW(const wchar_t* format, ...);
+
     //returns: size of the appended content:
     DWORD append_raw(LPVOID lpOptional, const DWORD dwOptionalLength, BOOL stopOnNonPrintable);
 

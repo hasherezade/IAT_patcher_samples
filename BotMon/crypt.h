@@ -8,6 +8,22 @@
 
 extern "C" {
 
+    BOOL __declspec(dllexport) _stdcall _cryptAcquireContextA(
+        _Out_       HCRYPTPROV  *phProv,
+        _In_opt_    LPCSTR    szContainer,
+        _In_opt_    LPCSTR    szProvider,
+        _In_        DWORD       dwProvType,
+        _In_        DWORD       dwFlags
+    );
+
+    BOOL __declspec(dllexport) _stdcall _cryptAcquireContextW(
+        _Out_       HCRYPTPROV  *phProv,
+        _In_opt_    LPCWSTR    szContainer,
+        _In_opt_    LPCWSTR    szProvider,
+        _In_        DWORD       dwProvType,
+        _In_        DWORD       dwFlags
+    );
+
     BOOL __declspec(dllexport) _stdcall _cryptImportKey(
         _In_                    HCRYPTPROV  hProv,
         _In_reads_bytes_(dwDataLen)  CONST BYTE  *pbData,
