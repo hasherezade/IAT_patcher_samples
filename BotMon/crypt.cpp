@@ -48,10 +48,13 @@ _cryptGenRandomDummy(
     _Inout_updates_bytes_(dwLen)   BYTE    *pbBuffer
 )
 {
-    Logger::append("[CRYPT] CryptGenRandom intercepted: dwLen =  %d", dwLen);
+    static char val = '0';
+    Logger::append("[CRYPT] CryptGenRandom intercepted: dwLen =  %d (val = %c)", dwLen, val);
     BOOL is_ok = CryptGenRandom(hProv, dwLen, pbBuffer);
     if (is_ok) {
-        memset(pbBuffer, '7', dwLen);
+        memset(pbBuffer, val, dwLen);
+        val++;
+        if (val >= 0x7e) val = '0'; //reset
     }
     return is_ok;
 }
