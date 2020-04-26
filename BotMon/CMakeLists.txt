@@ -23,3 +23,6 @@ set (hdrs
 )
 
 add_library (BotMon SHARED ${hdrs} ${srcs} main.def)
+
+#install
+INSTALL( TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT ${PROJECT_NAME} )
