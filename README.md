@@ -11,3 +11,7 @@ IAT Patcher:<br/>
 Download:
 https://github.com/hasherezade/IAT_patcher/releases<br/>
 Source: https://github.com/hasherezade/IAT_patcher<br/><br/>
+
+Download:
+-
+Fresh builds can be downloaded from [the build server](https://ci.appveyor.com/project/hasherezade/iat-patcher-samples) (click on the build and choose the "Artifacts" tab)
