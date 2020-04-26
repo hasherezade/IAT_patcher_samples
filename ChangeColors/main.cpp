@@ -6,7 +6,7 @@ map<DWORD,DWORD> g_IndexToColor;
 
 COLORREF  __stdcall MyTextColor(HDC hdc, COLORREF crColor)
 {
-    srand (time(NULL));
+    srand ((unsigned int)time(NULL));
     DWORD colorBuf = rand();
 
     return SetTextColor(hdc, colorBuf);
@@ -64,5 +64,3 @@ BOOL WINAPI DllMain (HANDLE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
  
     return TRUE;
 }
- 
-
