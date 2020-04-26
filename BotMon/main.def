@@ -10,3 +10,5 @@ EXPORTS _cryptAcquireContextA
 EXPORTS _cryptAcquireContextW
 EXPORTS _cryptGenRandomDummy
 EXPORTS _writeProcessMemory
+EXPORTS _createProcessW
+EXPORTS _createProcessA
