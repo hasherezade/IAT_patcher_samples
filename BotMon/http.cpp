@@ -1,7 +1,26 @@
 #include "http.h"
-#include <stdio.h>
+#include <iostream>
+#include <sstream>
 
 #include "logger.h"
+#include "util.h"
+
+#define RESPONSE_FILE "response"
+#define RESPONSE_EXT ".bin"
+
+size_t g_CurrResp = 0;
+
+std::string make_filename(const std::string &base_name, size_t id, const std::string &ext)
+{
+    std::stringstream ss;
+    ss << base_name;
+    ss << "_";
+    ss << id;
+    ss << ext;
+    return ss.str();
+}
+
+//-----
 
 HINTERNET __stdcall _winHttpConnect(
     IN HINTERNET hSession,
@@ -51,7 +70,7 @@ BOOL __stdcall _winHttpSendRequest(IN HINTERNET hRequest,
     if (res == FALSE) {
         Logger::append("[HTTP] Failed");
     }
-    return res;
+    return TRUE; // always true
 }
 
 BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
@@ -84,4 +103,54 @@ BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
         return FALSE;
     }*/
     return res;
+}
+
+BOOL BOTMON_API __stdcall _winHttpReceiveResponseFromFile(
+    IN HINTERNET hRequest,
+    IN LPVOID    lpReserved
+)
+{
+    std::string resp_file = make_filename(RESPONSE_FILE, g_CurrResp, RESPONSE_EXT);
+    if (get_file_size(resp_file.c_str()) != 0) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+BOOL BOTMON_API __stdcall _winHttpQueryDataAvailableFromFile(
+    IN  HINTERNET hRequest,
+    OUT LPDWORD   lpdwNumberOfBytesAvailable
+)
+{
+    const std::string resp_file = make_filename(RESPONSE_FILE, g_CurrResp, RESPONSE_EXT);
+    size_t size = get_file_size(resp_file.c_str());
+    if (!lpdwNumberOfBytesAvailable) {
+        (*lpdwNumberOfBytesAvailable) = size;
+    }
+   return TRUE;
+}
+
+
+BOOL BOTMON_API __stdcall _winHttpReadDataFromFile(
+    IN  HINTERNET hRequest,
+    OUT LPVOID    lpBuffer,
+    IN  DWORD     dwNumberOfBytesToRead,
+    OUT LPDWORD   lpdwNumberOfBytesRead
+)
+{
+    if (!lpBuffer) return FALSE;
+
+    const std::string resp_file = make_filename(RESPONSE_FILE, g_CurrResp, RESPONSE_EXT);
+    FILE *fp = fopen(resp_file.c_str(), "rb");
+    if (!fp) return FALSE;
+
+    size_t readSize = fread(lpBuffer, 1, dwNumberOfBytesToRead, fp);
+    fclose(fp);
+
+    if (lpdwNumberOfBytesRead) {
+        (*lpdwNumberOfBytesRead) = readSize;
+    }
+    g_CurrResp++;
+    return TRUE;
 }

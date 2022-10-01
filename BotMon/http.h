@@ -5,16 +5,18 @@
 
 #pragma comment(lib, "WinHttp.lib")
 
+#define BOTMON_API __declspec(dllexport)
+
 extern "C" {
 
-    HINTERNET __declspec(dllexport) __stdcall _winHttpConnect(
+    HINTERNET BOTMON_API __stdcall _winHttpConnect(
         IN HINTERNET hSession,
         IN LPCWSTR pswzServerName,
         IN INTERNET_PORT nServerPort,
         _Reserved_ DWORD dwReserved
     );
 
-    HINTERNET __declspec(dllexport) __stdcall _winHttpOpenRequest(
+    HINTERNET BOTMON_API __stdcall _winHttpOpenRequest(
         IN HINTERNET hConnect,
         IN LPCWSTR pwszVerb,
         IN LPCWSTR pwszObjectName,
@@ -24,7 +26,7 @@ extern "C" {
         IN DWORD dwFlags
     );
 
-    BOOL __declspec(dllexport) __stdcall _winHttpSendRequest(
+    BOOL BOTMON_API __stdcall _winHttpSendRequest(
         IN HINTERNET hRequest,
         _In_reads_opt_(dwHeadersLength) LPCWSTR lpszHeaders,
         IN DWORD dwHeadersLength,
@@ -34,11 +36,28 @@ extern "C" {
         IN DWORD_PTR dwContext
     );
 
-    BOOL  __declspec(dllexport) __stdcall _winHttpReadData(
+    BOOL BOTMON_API __stdcall _winHttpReadData(
         IN HINTERNET hRequest,
         OUT LPVOID lpBuffer,
         IN DWORD dwNumberOfBytesToRead,
         OUT LPDWORD lpdwNumberOfBytesRead
+    );
+
+    BOOL BOTMON_API __stdcall _winHttpReceiveResponseFromFile(
+        IN HINTERNET hRequest,
+        IN LPVOID    lpReserved
+    );
+
+    BOOL BOTMON_API __stdcall _winHttpQueryDataAvailableFromFile(
+        IN  HINTERNET hRequest,
+        OUT LPDWORD   lpdwNumberOfBytesAvailable
+    );
+
+    BOOL BOTMON_API __stdcall _winHttpReadDataFromFile(
+        IN  HINTERNET hRequest,
+        OUT LPVOID    lpBuffer,
+        IN  DWORD     dwNumberOfBytesToRead,
+        OUT LPDWORD   lpdwNumberOfBytesRead
     );
 
 };

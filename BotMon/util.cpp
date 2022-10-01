@@ -56,3 +56,14 @@ BOOL has_printable_line(LPVOID buffer, DWORD bufferSize)
     }
     return TRUE;
 }
+
+size_t get_file_size(const char *filename)
+{
+    FILE *fp = fopen(filename, "rb");
+    if (!fp) return 0;
+
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    fclose(fp);
+    return size;
+}

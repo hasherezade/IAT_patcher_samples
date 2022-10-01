@@ -3,6 +3,9 @@ EXPORTS _winHttpConnect
 EXPORTS _winHttpOpenRequest
 EXPORTS _winHttpSendRequest
 EXPORTS _winHttpReadData
+EXPORTS _winHttpReceiveResponseFromFile
+EXPORTS _winHttpQueryDataAvailableFromFile
+EXPORTS _winHttpReadDataFromFile
 EXPORTS _cryptDecrypt
 EXPORTS _cryptEncrypt
 EXPORTS _cryptImportKey
