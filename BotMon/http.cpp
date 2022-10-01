@@ -125,7 +125,7 @@ BOOL BOTMON_API __stdcall _winHttpQueryDataAvailableFromFile(
 {
     const std::string resp_file = make_filename(RESPONSE_FILE, g_CurrResp, RESPONSE_EXT);
     size_t size = get_file_size(resp_file.c_str());
-    if (!lpdwNumberOfBytesAvailable) {
+    if (lpdwNumberOfBytesAvailable) {
         (*lpdwNumberOfBytesAvailable) = size;
     }
    return TRUE;
